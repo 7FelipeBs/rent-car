@@ -1,16 +1,17 @@
 package com.rentcar.product.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "CAR_RENT")
 public class CarRent {
@@ -18,9 +19,6 @@ public class CarRent {
     @Id
     @Column(name = "CAR_RENT_ID")
     private Long id;
-
-    @Column(name = "CONTRACT_RENT_ID")
-    private Long contractRentId;
 
     @Column(name = "USER_ID")
     private Long userId;
@@ -33,4 +31,7 @@ public class CarRent {
 
     @Column(name = "ACTIVE")
     private String active;
+
+    @Transient
+    private List<ContractRent> contractRentList;
 }

@@ -1,6 +1,7 @@
 services:
   mysql_security:
     image: mysql:latest
+    container_name: security
     environment:
       MYSQL_DATABASE: security_db
       MYSQL_ROOT_PASSWORD: "root"
@@ -12,6 +13,7 @@ services:
 
   mysql_marketing:
     image: mysql:latest
+    container_name: marketing
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: marketing_db
@@ -23,6 +25,7 @@ services:
 
   mysql_product:
     image: mysql:latest
+    container_name: product
     environment:
       MYSQL_DATABASE: product_db
       MYSQL_ROOT_PASSWORD: "root"
@@ -30,7 +33,12 @@ services:
       - "3310:3306"
     volumes:
       - mysql_product_data:/var/lib/mysql
-
+  rabbitmq:
+        image: "rabbitmq:3.8.6-management"
+        container_name: rabbitmq-rent-car
+        ports:
+          - 5672:5672
+          - 15672:15672
 volumes:
   mysql_security_data:
   mysql_marketing_data:
