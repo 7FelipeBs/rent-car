@@ -5,9 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -16,6 +16,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "CONTRACT_RENT")
 public class ContractRent {
 

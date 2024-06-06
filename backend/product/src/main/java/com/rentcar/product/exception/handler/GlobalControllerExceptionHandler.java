@@ -48,4 +48,13 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
                 .status(HttpStatus.METHOD_NOT_ALLOWED)
                 .body(new ErrorResponse(HttpStatus.METHOD_NOT_ALLOWED.value(), ex.getMessage()));
     }
+
+    //when a problem occurs in the business rules
+    @ExceptionHandler(value = BusinessRuleException.class)
+    public ResponseEntity<ErrorResponse> handleBussinessRuleException(BusinessRuleException ex) {
+        log.error("{}{}", HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
 }

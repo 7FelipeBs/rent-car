@@ -1,6 +1,7 @@
 package com.rentcar.product.service;
 
 import com.rentcar.product.entity.CarRent;
+import com.rentcar.product.exception.handler.BusinessRuleException;
 import com.rentcar.product.messaging.publisher.ProductPublisher;
 import com.rentcar.product.repository.ICarRentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +34,27 @@ public class CarRentService {
     }
 
     public CarRent createOrUpdate(CarRent entity) {
+        if(entity == null) throw new BusinessRuleException("CarRent cannot null!");
         // validate if dat init and dat final entity have available to conclude a contract before of save
+        validateCarRent(entity);
+
         log.info("Create/Update entity");
         entity = carRentRepository.save(entity);
 
         log.info("Car Rent Publisher With Success");
         productPublisher.sendMessageWithObjectSuccess(entity);
         return entity;
+    }
+
+    private void validateCarRent(CarRent entity) {
+        var carRent = carRentRepository.findByIdentification(entity.getIdentification());
+        if(carRent != null && entity.getId() == null) {
+            throw new BusinessRuleException("There is a car with these identification");
+        }
+        if(carRent != null && !carRent.getId().equals(entity.getId())) {
+            throw new BusinessRuleException("There is a car with these identification");
+        }
+
     }
 
     public void delete(Long id) {
@@ -54,4 +69,7 @@ public class CarRentService {
            log.error(e.getMessage());
         }
     }
+
+
+
 }
