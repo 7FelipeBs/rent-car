@@ -35,7 +35,6 @@ public class CarRentService {
 
     public CarRent createOrUpdate(CarRent entity) {
         if(entity == null) throw new BusinessRuleException("CarRent cannot null!");
-        // validate if dat init and dat final entity have available to conclude a contract before of save
         validateCarRent(entity);
 
         log.info("Create/Update entity");
@@ -49,17 +48,21 @@ public class CarRentService {
     private void validateCarRent(CarRent entity) {
         var carRent = carRentRepository.findByIdentification(entity.getIdentification());
         if(carRent != null && entity.getId() == null) {
-            throw new BusinessRuleException("There is a car with these identification");
+            throw new BusinessRuleException("There is a car with these identification!");
         }
         if(carRent != null && !carRent.getId().equals(entity.getId())) {
-            throw new BusinessRuleException("There is a car with these identification");
+            throw new BusinessRuleException("There is a car with these identification!");
         }
 
     }
 
     public void delete(Long id) {
-        // validate if contract was paid to delete
         try{
+            var contracts = contractRentService.findContractsByCarId(id);
+            if(!contracts.isEmpty()) {
+                contracts.forEach(x -> contractRentService.delete(x.getId()));
+            }
+
             log.info("trying delete by id");
             carRentRepository.deleteById(id);
 

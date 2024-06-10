@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CarRentServiceTest {
+class CarRentServiceTest {
 
     @InjectMocks
     CarRentService carRentService;
@@ -32,12 +32,10 @@ public class CarRentServiceTest {
     private ProductPublisher productPublisher;
 
     CarRent carRentToSave;
-
     CarRent carRentExists;
 
-
     @BeforeEach
-    public void setup () {CarRent car =
+    public void setup () {
         carRentToSave = CarRent.builder()
                 .id(null)
                 .userId(1L)
@@ -78,7 +76,7 @@ public class CarRentServiceTest {
             carRentService.createOrUpdate(carRentToSave);
         });
 
-        assertThat(e.getMessage(), is("There is a car with these identification"));
+        assertThat(e.getMessage(), is("There is a car with these identification!"));
         verify(carRentRepository).findByIdentification(carRentToSave.getIdentification());
         verifyNoMoreInteractions(carRentRepository);
     }

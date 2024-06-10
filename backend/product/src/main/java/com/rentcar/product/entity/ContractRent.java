@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class ContractRent {
     private Long carRentId;
 
     @Column(name = "VALUE_RENT")
-    private Double valueRent;
+    private BigDecimal valueRent;
 
     @Column(name = "INIT_CONTRACT_DAT")
     private LocalDateTime initContractDat;

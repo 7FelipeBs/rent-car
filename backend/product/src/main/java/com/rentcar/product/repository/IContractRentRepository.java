@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,11 @@ public interface IContractRentRepository extends JpaRepository<ContractRent, Lon
             WHERE carRentId = :id
             """)
     List<ContractRent> findContractsByCarId(long id);
+
+    @Query("""
+            FROM ContractRent
+            WHERE carRentId = :carRentId
+                AND :initContractDat BETWEEN initContractDat OR finalContractDat
+            """)
+    ContractRent findByContractDat(LocalDateTime initContractDat, long carRentId);
 }
