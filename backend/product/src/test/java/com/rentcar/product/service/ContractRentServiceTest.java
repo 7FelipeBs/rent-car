@@ -1,7 +1,7 @@
 package com.rentcar.product.service;
 
 import com.rentcar.product.entity.ContractRent;
-import com.rentcar.product.exception.handler.BusinessRuleException;
+import com.rentcar.product.exception.BusinessRuleException;
 import com.rentcar.product.repository.IContractRentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

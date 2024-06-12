@@ -1,3 +1,3 @@
-package com.rentcar.product.exception.handler;
+package com.rentcar.product.exception;
 
 public record ErrorResponse(int statusCode, String message){ }

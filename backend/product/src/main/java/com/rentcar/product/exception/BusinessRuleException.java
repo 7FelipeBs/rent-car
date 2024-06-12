@@ -1,4 +1,4 @@
-package com.rentcar.product.exception.handler;
+package com.rentcar.product.exception;
 
 public class BusinessRuleException extends RuntimeException {
 

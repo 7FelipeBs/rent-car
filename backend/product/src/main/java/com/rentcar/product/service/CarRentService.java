@@ -1,7 +1,7 @@
 package com.rentcar.product.service;
 
 import com.rentcar.product.entity.CarRent;
-import com.rentcar.product.exception.handler.BusinessRuleException;
+import com.rentcar.product.exception.BusinessRuleException;
 import com.rentcar.product.messaging.publisher.ProductPublisher;
 import com.rentcar.product.repository.ICarRentRepository;
 import lombok.extern.slf4j.Slf4j;
